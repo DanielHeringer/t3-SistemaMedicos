@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <section class="layout-content" layout:fragment="corpo">
+      <nav class="navbar navbar-expand-md bg-light">
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <i class="oi oi-caret-right"></i>
+              <span th:text="#{paciente.cadastrar.label}"
+                >Cadastrar Paciente</span
+              >
+            </li>
+          </ul>
+          <a
+            class="btn btn-primary btn-md"
+            th:href="@{/pacientes/listar}"
+            role="button"
+          >
+            <span
+              class="oi oi-spreadsheet"
+              title="Listar"
+              aria-hidden="true"
+            ></span>
+            <span th:text="#{paciente.listar.label}">Listar Pacientes</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="container" id="cadastro">
+        <div th:replace="fragments/alert"></div>
+
+        <form
+          th:action="${paciente.id == null} ? @{/pacientes/salvar} : @{/pacientes/editar}"
+          th:object="${paciente}"
+          method="POST"
+        >
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="nome" th:text="#{paciente.nome.label}">Nome</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nome"
+                autofocus="autofocus"
+                th:field="*{nome}"
+                th:classappend="${#fields.hasErrors('nome')} ? is-invalid"
+              />
+
+              <div class="invalid-feedback">
+                <span th:errors="*{nome}"></span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="CPF" th:text="#{paciente.cpf.label}">CPF</label>
+              <input
+                type="text"
+                class="form-control"
+                id="CPF"
+                placeholder="___.___.___-__"
+                autofocus="autofocus"
+                th:field="*{CPF}"
+                th:classappend="${#fields.hasErrors('CPF')} ? is-invalid"
+                data-mask="000.000.000-00"
+                data-mask-reverse="true"
+              />
+
+              <div class="invalid-feedback">
+                <span th:errors="*{CPF}"></span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="username" th:text="#{paciente.email.label}"
+                >Email</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="username"
+                placeholder="abcde@email.com"
+                autofocus="autofocus"
+                th:field="*{username}"
+                th:classappend="${#fields.hasErrors('username')} ? is-invalid"
+              />
+
+              <div class="invalid-feedback">
+                <span th:errors="*{username}"></span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="password" th:text="#{paciente.senha.label}"
+                >Senha</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                autofocus="autofocus"
+                th:field="*{password}"
+                th:classappend="${#fields.hasErrors('password')} ? is-invalid"
+              />
+
+              <div class="invalid-feedback">
+                <span th:errors="*{password}"></span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="telefone" th:text="#{paciente.telefone.label}"
+                >Telefone</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="telefone"
+                placeholder="(__)____-____"
+                autofocus="autofocus"
+                th:field="*{telefone}"
+                th:classappend="${#fields.hasErrors('telefone')} ? is-invalid"
+                data-mask="(00)0000-0000"
+                data-mask-reverse="true"
+              />
+
+              <div class="invalid-feedback">
+                <span th:errors="*{telefone}"></span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="genero" th:text="#{paciente.genero.label}"
+                >Gênero</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="genero"
+                autofocus="autofocus"
+                th:field="*{genero}"
+                th:classappend="${#fields.hasErrors('genero')} ? is-invalid"
+              />
+
+              <div class="invalid-feedback">
+                <span th:errors="*{genero}"></span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="dataNascimento" th:text="#{paciente.data.label}"
+                >Data de Nascimento</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="dataNascimento"
+                placeholder="dd/mm/yyyy"
+                autofocus="autofocus"
+                th:field="*{dataNascimento}"
+                th:classappend="${#fields.hasErrors('dataNascimento')} ? is-invalid"
+                data-mask="00/00/0000"
+                data-mask-reverse="true"
+              />
+
+              <div class="invalid-feedback">
+                <span th:errors="*{dataNascimento}"></span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="role" th:text="#{paciente.papel.label}">Papel</label>
+              <select name="role" class="form-control" id="role">
+                <option value="ROLE_PACIENTE">Paciente</option>
+                <option value="ROLE_ADMIN">Admin</option>
+              </select>
+            </div>
+          </div>
+
+          <input type="hidden" id="id" th:field="*{id}" />
+          <button
+            type="submit"
+            class="btn btn-primary btn-sm"
+            th:text="#{button.save}"
+          >
+            Salvar
+          </button>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
